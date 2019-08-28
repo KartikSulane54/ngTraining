@@ -1,0 +1,115 @@
+<br>
+<br>
+<div class="container" id="collapseExample">
+  <div class="card card-body">
+  <form name="frmStudent" (ngSubmit)="save()" [formGroup]="frmStudent">
+    <div class="form-group">
+      <label for="StudentId">StudentId</label>
+      <input type="text" class="form-control" formControlName="StudentId" name="StudentId" />
+      <div class="alert alert-danger" *ngIf="!!frmStudent.controls.StudentId.dirty && !frmStudent.controls.StudentId.valid">
+        <p *ngIf="!!frmStudent.controls.StudentId.errors.required">Student id is a must</p>
+        <p *ngIf="!!frmStudent.controls.StudentId.errors.minlength">Student Id needs to be more than 3</p>
+        <p *ngIf="!!frmStudent.controls.StudentId.errors.maxlength">Student Id needs to be less than 8</p>
+        <p *ngIf="!!frmStudent.controls.StudentId.errors.pattern">Student Id needs to be positive</p>
+        <p *ngIf="!!frmStudent.controls.StudentId.invalid">Student Id needs to be Good</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="StudentName">StudentName</label>
+      <input type="text" class="form-control" formControlName="StudentName" name="StudentName" />
+      <div class="alert alert-danger" *ngIf="!!frmStudent.controls.StudentName.dirty && !frmStudent.controls.StudentName.valid">
+          <p *ngIf="!!frmStudent.controls.StudentName.errors.pattern">Student Name needs to be Camel Case</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label for="Address">Address</label>
+      <input type="text" class="form-control" formControlName="Address" name="Address" />
+    </div>
+
+    <div class="form-group">
+      <label for="University">University</label>
+      <select class="form-control" name="University" formControlName="University">
+        <option *ngFor="let u of universities" value="{{u}}">{{u}}</option>
+
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="Course">Course</label>
+      <select class="form-control" name="Course" formControlName="Course" >
+        <option *ngFor="let c of courses" value="{{c}}">{{c}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="Fees">Fees</label>
+      <input type="text" class="form-control" formControlName="Fees" name="Fees"  />
+    </div>
+
+    <div class="form-group">
+      <input type="submit" value="Save" class="btn btn-success" [disabled]="!frmStudent.valid" />
+      <input type="button" value="New" (click)="clear()" class="btn btn-default" />
+    </div>
+  </form>
+  </div>
+</div>
+<br>
+
+<div class="container">
+  <div class="">
+  <table>
+    <tr>
+      <td>
+        <label for="StudentName">StudentName</label></td>
+      <td>
+        <input type="radio" name="criteria" value="StudentName" (change)="showText()" [(ngModel)]="radiodata"></td>
+    </tr>
+
+    <tr>
+      <td>
+        <label for="University">University</label></td>
+      <td>
+        <input type="radio" name="criteria" value="University" (change)="showText()" [(ngModel)]="radiodata">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <label for="Course">Course</label></td>
+      <td>
+        <input type="radio" name="criteria" value="Course" (change)="showText()" [(ngModel)]="radiodata">
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+<div class="container">
+  <input type="text" [disabled]="!showTextBox" [(ngModel)]="textInput" (change)="textAreaEmpty()">
+</div>
+<br>
+
+<div class="container">
+  <input type="button" value="Search" (click)="search()">
+  <input type="button" value="Sort" (click)="sort()">
+  <input type="button" value="Reverse" (click)="reverse()">
+</div>
+
+<br>
+<br>
+
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-light">
+      <tr>
+        <td *ngFor="let h of headers">{{h}}</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of students" (click)="getSelectedStudent(s)">
+        <td *ngFor="let h of headers">{{s[h]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

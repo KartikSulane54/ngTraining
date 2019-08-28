@@ -1,0 +1,20 @@
+<div class="card card-body">
+  {{ msg }}
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+       <tr>
+           <td>Category Id</td>
+           <td>Category Name</td>
+       </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cat of categories"
+        (click)="selectCategory(cat)">
+            <td>{{cat.categoryId}}</td>
+            <td>{{cat.categoryName}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<app-product-data [categoryName]='categoryName' (notify)="getMessage($event)"></app-product-data>
